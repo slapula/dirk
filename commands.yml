@@ -1,0 +1,14 @@
+---
+test:
+ batch: 1
+ parameters:
+  workingDirectory: ""
+  executionTimeout: "3600"
+  commands:
+    - "#!/bin/bash"
+    - "echo Hello World"
+ targets:
+  - key: tag:app
+    values: "app2"
+  - key: tag:env
+    values: "test"

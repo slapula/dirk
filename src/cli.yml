@@ -1,0 +1,39 @@
+name: dirk
+version: "0.1.0"
+author: Aaron J. Smith <ajsmith10381@gmail.com>
+about: "Orchestrate commands or scripts using AWS Systems Manager's Run Command feature"
+args:
+    - inventory:
+        short: i
+        long: inventory
+        value_name: FILE
+        help: "Inventory file for commands (Default: 'commands.yml')"
+        takes_value: true
+        default_value: "commands.yml"
+    - execute:
+        short: e
+        long: execute
+        value_name: STRING
+        help: "Command to execute"
+        takes_value: true
+    - region:
+        short: r
+        long: region
+        value_name: STRING
+        help: "AWS Region (Default: 'us-east-1')"
+        takes_value: true
+        default_value: "us-east-1"
+    - batch:
+        short: b
+        long: batch
+        value_name: INTEGER
+        help: "Number of instances to execute command concurrently (default: 1)"
+        takes_value: true
+        default_value: "1"
+    - log-level:
+        short: l
+        long: log-level
+        value_name: STRING
+        help: "Logging Level: 'debug' for verbose, 'info' for terse (default: 'info')"
+        takes_value: true
+        default_value: "info"
