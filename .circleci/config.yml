@@ -4,13 +4,14 @@ orbs:
 jobs:
   build:
     executor: rust/default
+    working_directory: ~/dirkspace
     steps:
       - checkout
       - rust/update_toolchain
       - rust/build:
           release: true
       - persist_to_workspace:
-          root: /root/project/
+          root: .
           paths:
             - target/release/dirk
 
@@ -18,14 +19,15 @@ jobs:
   publish-github-release:
     docker:
       - image: circleci/golang:1.12
+    working_directory: ~/dirkspace
     steps:
       - attach_workspace:
-          at: /root/project/
+          at: ~/dirkspace
       - run:
           name: "Publish Release on GitHub"
           command: |
             go get github.com/tcnksm/ghr
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} /root/project/target/release/dirk
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} ~/dirkspace
 
 workflows:
   main:
