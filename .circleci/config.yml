@@ -1,0 +1,42 @@
+version: 2.1
+orbs:
+  rust: glotrade/rust@0.1.3
+jobs:
+  build:
+    executor: rust/default
+    steps:
+      - checkout
+      - rust/update_toolchain
+      - rust/build:
+          release: true
+      - store_artifacts:
+          path: ./target/release/dirk
+
+
+  publish-github-release:
+    docker:
+      - image: circleci/golang:1.8
+    steps:
+      - attach_workspace:
+          at: ./artifacts
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            go get github.com/tcnksm/ghr
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} ./artifacts/
+
+workflows:
+  main:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+      - publish-github-release:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+\.\d+\.\d+$/
