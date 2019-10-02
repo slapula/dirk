@@ -9,8 +9,10 @@ jobs:
       - rust/update_toolchain
       - rust/build:
           release: true
-      - store_artifacts:
-          path: ./target/release/dirk
+      - persist_to_workspace:
+          root: /root/project/
+          paths:
+            - target/release/dirk
 
 
   publish-github-release:
@@ -18,12 +20,12 @@ jobs:
       - image: circleci/golang:1.12
     steps:
       - attach_workspace:
-          at: ./artifacts
+          at: /root/project/
       - run:
           name: "Publish Release on GitHub"
           command: |
             go get github.com/tcnksm/ghr
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} ./artifacts/
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${CIRCLE_TAG} /root/project/target/release/dirk
 
 workflows:
   main:
