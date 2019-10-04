@@ -12,6 +12,8 @@ jobs:
       - rust/update_toolchain
       - rust/build:
           release: true
+      - store_artifacts:
+          path: ~/dirkspace/target/release/dirk
       - persist_to_workspace:
           root: .
           paths:

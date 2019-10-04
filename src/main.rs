@@ -132,7 +132,7 @@ fn main() {
     let yaml = load_yaml!("cli.yml");
     let matches = App::from_yaml(yaml).setting(AppSettings::ArgRequiredElseHelp).get_matches();
 
-    let batch = matches.value_of("batch").unwrap_or("50").to_string();
+    let batch = matches.value_of("batch").unwrap_or("1").to_string();
 
     let command_file = matches.value_of("inventory").unwrap();
     let command_name = matches.value_of("execute").unwrap();

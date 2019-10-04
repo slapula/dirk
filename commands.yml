@@ -9,6 +9,6 @@ test:
     - "echo Hello World"
  targets:
   - key: tag:app
-    values: "app"
+    values: "demo"
   - key: tag:env
     values: "test"
