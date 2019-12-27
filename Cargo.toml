@@ -1,9 +1,10 @@
 [package]
 name = "dirk"
-version = "0.1.0"
+version = "0.1.1"
+license = "MIT"
 authors = ["Aaron J. Smith <ajsmith10381@gmail.com>"]
 edition = "2018"
-categories = ["aws", "command-line-interface"]
+categories = ["command-line-utilities"]
 description = "Orchestrate commands or scripts using AWS Systems Manager's Run Command feature"
 readme = "README.md"
 homepage = "https://github.com/slapula/dirk"
@@ -14,8 +15,8 @@ keywords = ["aws", "ec2", "ssm", "bash", "cli"]
 [dependencies]
 clap = {version = "2.33.0", features = ["yaml"]}
 yaml-rust = "0.4.3"
-serde = "1.0"
-serde_yaml = "0.8"
-rusoto_core = "0.40.0"
-rusoto_ssm = "0.40.0"
-crossbeam = "0.7.2"
+serde = "1.0.104"
+serde_yaml = "0.8.11"
+rusoto_core = "0.42.0"
+rusoto_ssm = "0.42.0"
+crossbeam = "0.7.3"
